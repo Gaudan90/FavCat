@@ -7,13 +7,10 @@ const Stack = createNativeStackNavigator<MainParamList>();
 
 const RootStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen 
         name={Screen.Home} 
         component={HelloScreen}
-        options={{
-          title: 'FavCat Test'
-        }}
       />
     </Stack.Navigator>
   );
