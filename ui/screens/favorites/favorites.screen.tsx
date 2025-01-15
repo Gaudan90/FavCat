@@ -5,8 +5,8 @@ import { styles } from './favorites.styles';
 const FavoritesScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Preferiti</Text>
-      <Text>Qui appariranno i preferiti</Text>
+      <Text style={styles.text}>Niente Preferiti?! (╯°□°)╯︵ ┻━┻</Text>
+      <Text>Qui andranno i preferiti</Text>
     </View>
   );
 };

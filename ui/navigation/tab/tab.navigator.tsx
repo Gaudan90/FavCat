@@ -14,14 +14,14 @@ const TabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#ffffff',
+          backgroundColor: '#1d2b42',
           borderTopWidth: 1,
-          borderTopColor: '#e0e0e0',
+          borderTopColor: '#041e2b',
           paddingBottom: 5,
           paddingTop: 5,
         },
-        tabBarActiveTintColor: '#FF6B6B',
-        tabBarInactiveTintColor: '#666666',
+        tabBarActiveTintColor: '#cd1c18',
+        tabBarInactiveTintColor: '#6f84a6',
       }}
     >
       <Tab.Screen

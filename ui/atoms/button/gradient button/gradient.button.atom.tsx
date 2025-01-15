@@ -1,10 +1,10 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleProp, ViewStyle } from 'react-native';
+import React, { ReactNode } from 'react';
+import { View, TouchableOpacity, Text, StyleProp, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { styles } from './gradient.button.styles';
 
 interface GradientButtonProps {
-  title: string;
+  title: string | ReactNode;
   onPress: () => void;
   colors: readonly [string, string];
   style?: StyleProp<ViewStyle>;
@@ -25,9 +25,15 @@ const GradientButton: React.FC<GradientButtonProps> = ({
         colors={colors}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={styles.gradient}
+        style={[styles.gradient, { flex: 1, justifyContent: 'center', alignItems: 'center' }]}
       >
-        <Text style={styles.text}>{title}</Text>
+        {typeof title === 'string' ? (
+          <Text style={styles.text}>{title}</Text>
+        ) : (
+          <View style={styles.iconContainer}>
+            {title}
+          </View>
+        )}
       </LinearGradient>
     </TouchableOpacity>
   );
