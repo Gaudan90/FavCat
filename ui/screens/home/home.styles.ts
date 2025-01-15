@@ -11,12 +11,23 @@ export const styles = StyleSheet.create({
       justifyContent: 'center',
       paddingHorizontal: 20,
     },
+    image: {
+      width: 200,
+      height: 200,
+      marginBottom: 20,
+    },
     text: {
       color: '#ffffff',
       fontSize: 24,
-      marginBottom: 30,
+      marginBottom: 15,
       textAlign: 'center',
     },
-    button: {
+    description: {
+      color: '#ffffff',
+      fontSize: 16,
+      textAlign: 'center',
+      marginBottom: 15,
+      lineHeight: 22,
+      opacity: 0.8,
     },
-  });
+});
