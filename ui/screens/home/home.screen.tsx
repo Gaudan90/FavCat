@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import GradientButton from '../../atoms/button/gradient.button.atom';
+import { View, Text } from 'react-native';
+import { styles } from './home.styles';
+import GradientButton from '../../atoms/button/gradient button/gradient.button.atom';
 
 const HomeScreen = () => {
   const handlePress = () => {
@@ -13,7 +14,7 @@ const HomeScreen = () => {
         <Text style={styles.text}>Welcome home!</Text>
         
         <GradientButton 
-          title="Clicca qui"
+          title="Cliccami per l'antistress!"
           onPress={handlePress}
           colors={['#FF6B6B', '#FF8E53'] as const}
           style={styles.button}
@@ -22,25 +23,5 @@ const HomeScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  text: {
-    fontSize: 24,
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  button: {
-  },
-});
 
 export default HomeScreen;

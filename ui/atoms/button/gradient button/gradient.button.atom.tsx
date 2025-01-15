@@ -1,6 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { TouchableOpacity, Text, StyleProp, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { styles } from './gradient.button.styles';
 
 interface GradientButtonProps {
   title: string;
@@ -31,22 +32,5 @@ const GradientButton: React.FC<GradientButtonProps> = ({
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  touchable: {
-    borderRadius: 25,
-    overflow: 'hidden',
-  },
-  gradient: {
-    padding: 15,
-    minWidth: 200,
-    alignItems: 'center',
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-});
 
 export default GradientButton;

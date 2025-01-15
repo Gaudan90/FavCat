@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  View, 
-  StyleSheet, 
-  FlatList, 
-  ActivityIndicator,
-  RefreshControl
-} from 'react-native';
+import { View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+import { styles } from './product.list.styles';
 import ProductCard from '../../atoms/product card/product.card';
 import { Product } from '../../types/product.types';
 
@@ -62,21 +57,5 @@ const ProductListScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
-  listContent: {
-    paddingVertical: 16,
-  },
-});
 
 export default ProductListScreen;
