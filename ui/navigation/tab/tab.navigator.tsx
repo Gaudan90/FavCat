@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabParamList } from '../../navigation/types';
-import HelloScreen from '../../screens/hello.screen';
-import ProductListScreen from '../../screens/product.list.screen';
-import FavoritesScreen from '../../screens/favorites.screen';
+import { TabParamList } from '../../types/types';
+import HomeScreen from '../../screens/home/home.screen';
+import ProductListScreen from '../../screens/product/product.list.screen';
+import FavoritesScreen from '../../screens/favorites/favorites.screen';
 import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -26,7 +26,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HelloScreen}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />

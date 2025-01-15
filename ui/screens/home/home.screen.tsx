@@ -1,23 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import GradientButton from '../atoms/button/gradient.button.atom';
+import GradientButton from '../../atoms/button/gradient.button.atom';
 
-const HelloScreen = () => {
+const HomeScreen = () => {
   const handlePress = () => {
     console.log('Bottone premuto!');
   };
 
   return (
     <View style={styles.container}>
-      <Image 
-        source={{ 
-          uri: 'https://cdn.betterttv.net/emote/5fb750cf68e2d56f0f398e87/3x.gif'
-        }} 
-        style={styles.headerImage}
-      />
-      
       <View style={styles.content}>
-        <Text style={styles.text}>Hello World! We're working for you.</Text>
+        <Text style={styles.text}>Welcome home!</Text>
         
         <GradientButton 
           title="Clicca qui"
@@ -35,11 +28,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  headerImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'cover',
-  },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -55,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HelloScreen;
+export default HomeScreen;
