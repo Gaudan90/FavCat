@@ -3,6 +3,7 @@ export enum Screen {
   TabNavigator = 'TabNavigator',
   Products = 'Products',
   Favorites = 'Favorites',
+  Filters = 'Filters',
 }
 
 export type MainParamList = {
@@ -14,4 +15,5 @@ export type TabParamList = {
   Home: undefined;
   Products: undefined;
   Favorites: undefined;
+  Filters: undefined;
 };

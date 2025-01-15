@@ -5,6 +5,7 @@ import HomeScreen from '../../screens/home/home.screen';
 import ProductListScreen from '../../screens/product/product.list.screen';
 import FavoritesScreen from '../../screens/favorites/favorites.screen';
 import { Ionicons } from '@expo/vector-icons';
+import FiltersScreen from '../../screens/filters/filter.screen';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -52,6 +53,16 @@ const TabNavigator = () => {
             <Ionicons name="heart-outline" size={size} color={color} />
           ),
           tabBarLabel: 'Preferiti'
+        }}
+      />
+      <Tab.Screen
+        name="Filters"
+        component={FiltersScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="filter-outline" size={size} color={color} />
+          ),
+          tabBarLabel: 'Filtri'
         }}
       />
     </Tab.Navigator>
