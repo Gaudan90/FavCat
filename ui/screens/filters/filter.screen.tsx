@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from './filter.styles';
-import { RootStackParamList } from '../../types/types';
+import { TabParamList } from '../../types/types';
 
-type FilterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Filters'>;
+type FilterScreenNavigationProp = BottomTabNavigationProp<TabParamList, 'Filters'>;
 
 const FiltersScreen = () => {
   const navigation = useNavigation<FilterScreenNavigationProp>();
@@ -42,8 +43,8 @@ const FiltersScreen = () => {
     </View>
   );
 
-    const applyFilters = () => {
-    navigation.navigate('ProductList', {
+  const applyFilters = () => {
+    navigation.navigate('Products', {
       filters: {
         category: selectedCategory,
         minRating: selectedRating,
@@ -57,61 +58,71 @@ const FiltersScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Filtra per Categoria</Text>
-          <View style={styles.categoryContainer}>
-            {categories.map((category) => (
-              <TouchableOpacity
-                key={category}
-                style={[
-                  styles.categoryButton,
-                  selectedCategory === category && styles.selectedButton
-                ]}
-                onPress={() => setSelectedCategory(category)}
-              >
-                <Text style={styles.categoryText}>{category}</Text>
-              </TouchableOpacity>
-            ))}
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
+        <View style={styles.content}>
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Filtra per Categoria</Text>
+            <View style={styles.categoryContainer}>
+              {categories.map((category) => (
+                <TouchableOpacity
+                  key={category}
+                  style={[
+                    styles.categoryButton,
+                    selectedCategory === category && styles.selectedButton
+                  ]}
+                  onPress={() => setSelectedCategory(category)}
+                >
+                  <Text style={styles.categoryText}>{category}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Filtra per Rating Minimo</Text>
+            <View style={styles.ratingButtons}>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <TouchableOpacity
+                  key={rating}
+                  style={[
+                    styles.ratingButton,
+                    selectedRating === rating && styles.selectedButton
+                  ]}
+                  onPress={() => setSelectedRating(rating)}
+                >
+                  <RatingStars rating={rating} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          <View style={styles.buttonGroup}>
+            <TouchableOpacity
+              style={[styles.button, styles.applyButton]}
+              onPress={applyFilters}
+            >
+              <Text style={styles.buttonText}>Applica Filtri</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity
+              style={[styles.button, styles.resetButton]}
+              onPress={resetFilters}
+            >
+              <Text style={styles.buttonText}>Resetta Filtri</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../../../assets/images/favcat.png')}
+              style={styles.image}
+              resizeMode="contain"
+            />
           </View>
         </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Filtra per Rating Minimo</Text>
-          <View style={styles.ratingButtons}>
-            {[1, 2, 3, 4, 5].map((rating) => (
-              <TouchableOpacity
-                key={rating}
-                style={[
-                  styles.ratingButton,
-                  selectedRating === rating && styles.selectedButton
-                ]}
-                onPress={() => setSelectedRating(rating)}
-              >
-                <RatingStars rating={rating} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
-        <View style={styles.buttonGroup}>
-          <TouchableOpacity
-            style={[styles.button, styles.applyButton]}
-            onPress={applyFilters}
-          >
-            <Text style={styles.buttonText}>Applica Filtri</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[styles.button, styles.resetButton]}
-            onPress={resetFilters}
-          >
-            <Text style={styles.buttonText}>Resetta Filtri</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

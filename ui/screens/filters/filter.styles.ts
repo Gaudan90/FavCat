@@ -5,6 +5,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#040e1f',
   },
+  scrollContainer: {
+    flex: 1,
+  },
   content: {
     padding: 16,
   },
@@ -77,5 +80,13 @@ export const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginTop: 32,
+  },
+  image: {
+    width: 200,
+    height: 200,
   },
 });
