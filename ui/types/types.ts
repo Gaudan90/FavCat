@@ -13,7 +13,22 @@ export type MainParamList = {
 
 export type TabParamList = {
   Home: undefined;
-  Products: undefined;
+  Products: {
+    filters?: {
+      category: string;
+      minRating: number;
+    };
+  };
   Favorites: undefined;
+  Filters: undefined;
+};
+
+export type RootStackParamList = {
+  ProductList: {
+    filters?: {
+      category: string;
+      minRating: number;
+    };
+  };
   Filters: undefined;
 };

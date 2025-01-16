@@ -2,12 +2,20 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRoute, RouteProp } from '@react-navigation/native';
 import { styles } from './product.list.styles';
 import ProductCard from '../../atoms/product card/product.card';
 import GradientButton from '../../atoms/button/gradient button/gradient.button.atom';
 import { Product } from '../../types/product.types';
+import { RootStackParamList } from '../../types/types';
+
+type ProductListScreenRouteProp = RouteProp<RootStackParamList, 'ProductList'>;
 
 const ProductListScreen = () => {
+  const route = useRoute<ProductListScreenRouteProp>();
+  const filters = route.params?.filters;
+
+
   // ** Use States ** //
   const [products, setProducts] = useState<Product[]>([]);
   const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
@@ -17,6 +25,27 @@ const ProductListScreen = () => {
   const [ratingSortAsc, setRatingSortAsc] = useState(true);
 
   // ** Use Callbacks ** //
+  const applyFilters = useCallback((productList: Product[]) => {
+    if (!filters) return productList;
+
+    let filteredProducts = [...productList];
+
+    if (filters.category) {
+      filteredProducts = filteredProducts.filter(
+        product => product.category === filters.category
+      );
+    }
+
+    if (typeof filters.minRating === 'number' && filters.minRating > 0) {
+      filteredProducts = filteredProducts.filter(
+        product => product.rating.rate >= filters.minRating!
+      );
+    }
+
+    return filteredProducts;
+  }, [filters]);
+
+
   const sortByTitle = useCallback(() => {
     const sortedProducts = [...products].sort((a, b) => {
       const comparison = a.title.localeCompare(b.title);
@@ -36,10 +65,11 @@ const ProductListScreen = () => {
   }, [products, ratingSortAsc]);
 
   const resetSort = useCallback(() => {
-    setProducts([...originalProducts]);
+    const filteredProducts = applyFilters(originalProducts);
+    setProducts(filteredProducts);
     setTitleSortAsc(true);
     setRatingSortAsc(true);
-  }, [originalProducts]);
+  }, [originalProducts, applyFilters]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -51,8 +81,9 @@ const ProductListScreen = () => {
     try {
       const response = await fetch('https://fakestoreapi.com/products');
       const data = await response.json();
-      setProducts(data);
       setOriginalProducts(data);
+      const filteredData = applyFilters(data);
+      setProducts(filteredData);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -63,7 +94,7 @@ const ProductListScreen = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [filters]);
 
   if (loading) {
     return (
