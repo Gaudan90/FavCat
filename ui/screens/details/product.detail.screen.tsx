@@ -1,20 +1,16 @@
 import React from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { RootStackParamList, Screen } from '../../types/types';
+import { TabParamList, Screen } from '../../types/types';
 import { styles } from './product.detail.style';
 
-type ProductDetailScreenRouteProp = RouteProp<RootStackParamList, Screen.ProductDetail>;
-type ProductDetailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, Screen.ProductDetail>;
+type ProductDetailScreenRouteProp = RouteProp<TabParamList, Screen.ProductDetail>;
 
 const ProductDetailScreen = () => {
   const route = useRoute<ProductDetailScreenRouteProp>();
-  const navigation = useNavigation<ProductDetailScreenNavigationProp>();
 
-  // Controllo di sicurezza per i parametri
   if (!route.params?.product) {
     return (
       <SafeAreaView style={styles.container}>
