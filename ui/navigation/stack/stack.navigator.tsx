@@ -1,10 +1,9 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from '@react-navigation/stack'; 
 import TabNavigator from '../tab/tab.navigator';
 import ProductDetailScreen from '../../screens/details/product.detail.screen';
-import { MainParamList } from '../../types/types';
 
-const Stack = createStackNavigator<MainParamList>();
+const Stack = createStackNavigator(); // Rimuovi il generic type
 
 const StackNavigator = () => {
   return (

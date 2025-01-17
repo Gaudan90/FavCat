@@ -3,24 +3,19 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Product } from '../../types/product.types';
-import { TabParamList, MainParamList } from '../../types/types';
-import { CompositeNavigationProp } from '@react-navigation/native';
+import { Screen, RootStackParamList } from '../../types/types';
 import { styles } from './product.card.styles';
 import { ProductCardProps } from '../../types/product.types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-type ProductNavigationProp = CompositeNavigationProp
-  BottomTabNavigationProp<TabParamList>,
-  StackNavigationProp<MainParamList>
->;
+type ProductNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
 const FAVORITES_STORAGE_KEY = '@favorites';
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
-  onFavoriteChange,
-  isFavoritesScreen = false
+  onFavoriteChange
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const navigation = useNavigation<ProductNavigationProp>();
@@ -80,7 +75,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProductDetail', { product })}
+        onPress={() => navigation.navigate(Screen.ProductDetail, { product })}
       >
         <Image 
           source={{ uri: product.image }} 
