@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute, RouteProp } from '@react-navigation/native';
@@ -15,7 +15,6 @@ const ProductListScreen = () => {
   const route = useRoute<ProductListScreenRouteProp>();
   const filters = route.params?.filters;
 
-
   // ** Use States ** //
   const [products, setProducts] = useState<Product[]>([]);
   const [originalProducts, setOriginalProducts] = useState<Product[]>([]);
@@ -23,10 +22,11 @@ const ProductListScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [titleSortAsc, setTitleSortAsc] = useState(true);
   const [ratingSortAsc, setRatingSortAsc] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // ** Use Callbacks ** //
   const applyFilters = useCallback((productList: Product[]) => {
-    if (!filters) return productList;
+    if (!filters || !productList) return productList;
 
     let filteredProducts = [...productList];
 
@@ -38,16 +38,18 @@ const ProductListScreen = () => {
 
     if (typeof filters.minRating === 'number' && filters.minRating > 0) {
       filteredProducts = filteredProducts.filter(
-        product => product.rating.rate >= filters.minRating!
+        product => product.rating?.rate >= filters.minRating!
       );
     }
 
     return filteredProducts;
   }, [filters]);
 
-
   const sortByTitle = useCallback(() => {
+    if (!products.length) return;
+    
     const sortedProducts = [...products].sort((a, b) => {
+      if (!a.title || !b.title) return 0;
       const comparison = a.title.localeCompare(b.title);
       return titleSortAsc ? comparison : -comparison;
     });
@@ -56,7 +58,10 @@ const ProductListScreen = () => {
   }, [products, titleSortAsc]);
 
   const sortByRating = useCallback(() => {
+    if (!products.length) return;
+    
     const sortedProducts = [...products].sort((a, b) => {
+      if (!a.rating?.rate || !b.rating?.rate) return 0;
       const comparison = a.rating.rate - b.rating.rate;
       return ratingSortAsc ? comparison : -comparison;
     });
@@ -65,6 +70,7 @@ const ProductListScreen = () => {
   }, [products, ratingSortAsc]);
 
   const resetSort = useCallback(() => {
+    if (!originalProducts.length) return;
     const filteredProducts = applyFilters(originalProducts);
     setProducts(filteredProducts);
     setTitleSortAsc(true);
@@ -80,12 +86,20 @@ const ProductListScreen = () => {
   const fetchProducts = async () => {
     try {
       const response = await fetch('https://fakestoreapi.com/products');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data = await response.json();
-      setOriginalProducts(data);
-      const filteredData = applyFilters(data);
-      setProducts(filteredData);
+      if (Array.isArray(data) && data.length > 0) {
+        setOriginalProducts(data);
+        const filteredData = applyFilters(data);
+        setProducts(filteredData);
+      } else {
+        setError('No products found');
+      }
     } catch (error) {
       console.error('Error fetching products:', error);
+      setError('Error fetching products');
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -101,6 +115,16 @@ const ProductListScreen = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.centered}>
           <ActivityIndicator size="large" color="#FF6B6B" />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.centered}>
+          <Text style={styles.errorText}>{error}</Text>
         </View>
       </SafeAreaView>
     );

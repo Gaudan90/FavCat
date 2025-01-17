@@ -42,4 +42,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  errorText: {  
+    color: '#FF6B6B',
+    fontSize: 16,
+    textAlign: 'center',
+    padding: 20,
+    fontWeight: '500'
+  }
 });
