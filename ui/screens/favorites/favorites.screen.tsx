@@ -39,7 +39,7 @@ import React, { useEffect, useState, useCallback } from 'react';
           <View style={styles.emptyContainer}>
             <Text style={styles.text}>Niente Preferiti?! (╯°□°)╯︵ ┻━┻</Text>
             <Text style={[styles.text, { fontSize: 16 }]}>
-              Aggiungi alcuni prodotti ai preferiti. Adesso!
+              Aggiungi alcuni prodotti ai preferiti. Adesso!!!
             </Text>
           </View>
         </SafeAreaView>

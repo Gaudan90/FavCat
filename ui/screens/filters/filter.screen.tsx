@@ -9,6 +9,7 @@ import { TabParamList, Screen } from '../../types/types';
 
 type FilterScreenNavigationProp = BottomTabNavigationProp<TabParamList, Screen.Filters>;
 
+// ** Use States ** //
 const FiltersScreen = () => {
   const navigation = useNavigation<FilterScreenNavigationProp>();
   const [categories, setCategories] = useState<string[]>([]);
@@ -18,6 +19,8 @@ const FiltersScreen = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
+  
+    // ** Use Callbacks ** //
 
   const fetchCategories = async () => {
     try {

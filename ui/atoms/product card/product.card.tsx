@@ -64,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const renderStars = (rating: number) => {
     const stars = [];
-    const roundedRating = Math.round(rating * 2) / 2; // Arrotonda al mezzo punto più vicino
+    const roundedRating = Math.round(rating * 2) / 2;
     
     for (let i = 1; i <= 5; i++) {
       if (roundedRating >= i) {
