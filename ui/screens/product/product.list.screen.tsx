@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useRoute, RouteProp } from '@react-navigation/native';
+import { useRoute, RouteProp, useFocusEffect } from '@react-navigation/native';
 import { styles } from './product.list.styles';
 import ProductCard from '../../atoms/product card/product.card';
 import GradientButton from '../../atoms/button/gradient button/gradient.button.atom';
@@ -23,6 +23,7 @@ const ProductListScreen = () => {
   const [titleSortAsc, setTitleSortAsc] = useState(true);
   const [ratingSortAsc, setRatingSortAsc] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // ** Use Callbacks ** //
   const applyFilters = useCallback((productList: Product[]) => {
@@ -82,6 +83,12 @@ const ProductListScreen = () => {
     fetchProducts();
   }, []);
 
+  useFocusEffect(
+    useCallback(() => {
+      setRefreshKey(prev => prev + 1);
+    }, [])
+  );
+
   // **API Calls & Use Effects **//
   const fetchProducts = async () => {
     try {
@@ -105,7 +112,7 @@ const ProductListScreen = () => {
       setRefreshing(false);
     }
   };
-
+  
   useEffect(() => {
     fetchProducts();
   }, [filters]);
@@ -178,7 +185,12 @@ const ProductListScreen = () => {
       </View>
       <FlatList
         data={products}
-        renderItem={({ item }) => <ProductCard product={item} />}
+        renderItem={({ item }) => (
+          <ProductCard 
+            key={`${item.id}-${refreshKey}`}
+            product={item} 
+          />
+        )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
         refreshControl={
