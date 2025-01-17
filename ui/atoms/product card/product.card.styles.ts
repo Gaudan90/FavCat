@@ -64,11 +64,18 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   ratingContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  starsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 4,
+  },
+  starIcon: {
+    marginRight: 2,
   },
   ratingText: {
-    marginLeft: 4,
     fontSize: 14,
     color: '#666',
   },

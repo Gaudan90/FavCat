@@ -62,6 +62,28 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const roundedRating = Math.round(rating * 2) / 2; // Arrotonda al mezzo punto più vicino
+    
+    for (let i = 1; i <= 5; i++) {
+      if (roundedRating >= i) {
+        stars.push(
+          <Ionicons key={i} name="star" size={16} color="#FFD700" style={styles.starIcon} />
+        );
+      } else if (roundedRating >= i - 0.5) {
+        stars.push(
+          <Ionicons key={i} name="star-half" size={16} color="#FFD700" style={styles.starIcon} />
+        );
+      } else {
+        stars.push(
+          <Ionicons key={i} name="star-outline" size={16} color="#FFD700" style={styles.starIcon} />
+        );
+      }
+    }
+    return stars;
+  };
+
   return (
     <View style={styles.card}>
       <TouchableOpacity
@@ -90,6 +112,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {product.description}
           </Text>
           <View style={styles.ratingContainer}>
+            <View style={styles.starsContainer}>
+              {renderStars(product.rating.rate)}
+            </View>
             <Text style={styles.ratingText}>
               {product.rating.rate} / 5 ({product.rating.count} recensioni)
             </Text>
