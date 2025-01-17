@@ -1,14 +1,20 @@
+import { Product } from './product.types';
+
 export enum Screen {
   Home = 'Home',
   TabNavigator = 'TabNavigator',
   Products = 'Products',
   Favorites = 'Favorites',
   Filters = 'Filters',
+  ProductDetail = 'ProductDetail', 
 }
 
 export type MainParamList = {
   TabNavigator: undefined;
   [Screen.Home]: undefined;
+  [Screen.ProductDetail]: {  
+    product: Product;
+  };
 };
 
 export type TabParamList = {
@@ -31,4 +37,7 @@ export type RootStackParamList = {
     };
   };
   Filters: undefined;
+  ProductDetail: {   
+    product: Product;
+  };
 };
