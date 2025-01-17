@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product } from '../../types/product.types';
@@ -34,26 +35,34 @@ const FavoritesScreen = () => {
 
   if (favorites.length === 0) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Niente Preferiti?! (╯°□°)╯︵ ┻━┻</Text>
-        <Text style={[styles.text, { fontSize: 16 }]}>
-          Aggiungi alcuni prodotti ai preferiti!
-        </Text>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.emptyContainer}>
+          <Text style={styles.text}>Niente Preferiti?! (╯°□°)╯︵ ┻━┻</Text>
+          <Text style={[styles.text, { fontSize: 16 }]}>
+            Aggiungi alcuni prodotti ai preferiti!
+          </Text>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={favorites}
-        renderItem={({ item }) => <ProductCard product={item} />}
+        renderItem={({ item }) => (
+          <ProductCard 
+            product={item} 
+            onFavoriteChange={loadFavorites}
+            isFavoritesScreen={true}
+          />
+        )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
         onRefresh={loadFavorites}
         refreshing={false}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

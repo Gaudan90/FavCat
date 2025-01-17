@@ -1,4 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+const cardWidth = width - 32;
+const imageHeight = cardWidth * 0.5;
 
 export const styles = StyleSheet.create({
   card: {
@@ -24,7 +28,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 20,
     padding: 8,
-    elevation: 6, 
+    elevation: 6,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -35,9 +39,10 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 200,
+    height: imageHeight,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    resizeMode: 'contain', // Questo assicura che l'immagine sia completamente visibile
   },
   contentContainer: {
     padding: 16,

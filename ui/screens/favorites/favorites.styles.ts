@@ -15,4 +15,10 @@ export const styles = StyleSheet.create({
     listContent: {
       padding: 16,
     },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+    },
   });
