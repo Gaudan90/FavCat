@@ -1,14 +1,27 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+const imageWidth = width - 32;
+const imageHeight = imageWidth * 0.66;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#040e1f',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  imageContainer: {
+    width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
   },
   image: {
-    width: '100%',
-    height: 300,
-    backgroundColor: '#f0f0f0',
+    width: imageWidth,
+    height: imageHeight,
+    backgroundColor: '#040e1f',
   },
   contentContainer: {
     padding: 16,
@@ -16,7 +29,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#1d2b42',
+    color: '#6f84a6',
     marginBottom: 8,
   },
   price: {
@@ -33,7 +46,7 @@ export const styles = StyleSheet.create({
   ratingText: {
     marginLeft: 8,
     fontSize: 16,
-    color: '#1d2b42',
+    color: '#6f84a6',
   },
   reviewCount: {
     marginLeft: 8,
@@ -48,7 +61,7 @@ export const styles = StyleSheet.create({
   categoryLabel: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1d2b42',
+    color: '#6f84a6',
     marginRight: 8,
   },
   categoryText: {
@@ -61,7 +74,7 @@ export const styles = StyleSheet.create({
   descriptionLabel: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1d2b42',
+    color: '#6f84a6',
     marginBottom: 8,
   },
   description: {
@@ -73,5 +86,10 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FF6B6B',
     textAlign: 'center',
+  },
+  headerImage: {
+    width: 150,
+    height: 150,
+    backgroundColor: '#040e1f',
   },
 });

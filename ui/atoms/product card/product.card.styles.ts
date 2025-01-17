@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     height: imageHeight,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    resizeMode: 'contain', // Questo assicura che l'immagine sia completamente visibile
+    resizeMode: 'contain',
   },
   contentContainer: {
     padding: 16,
