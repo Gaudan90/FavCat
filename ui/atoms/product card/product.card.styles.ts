@@ -1,69 +1,70 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    card: {
-      backgroundColor: 'white',
-      borderRadius: 12,
-      marginHorizontal: 16,
-      marginVertical: 8,
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    image: {
-      width: '100%',
-      height: 200,
-      borderTopLeftRadius: 12,
-      borderTopRightRadius: 12,
-      resizeMode: 'contain',
-      backgroundColor: '#fff',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    position: 'relative',
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    zIndex: 999,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 20,
+    padding: 8,
+    elevation: 6, 
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    contentContainer: {
-      padding: 16,
-    },
-    title: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      marginBottom: 8,
-    },
-    price: {
-      fontSize: 18,
-      fontWeight: '600',
-      color: '#FF6B6B',
-      marginBottom: 8,
-    },
-    description: {
-      fontSize: 14,
-      color: '#666',
-      marginBottom: 8,
-    },
-    ratingContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    stars: {
-      flexDirection: 'row',
-      marginRight: 8,
-    },
-    ratingText: {
-      fontSize: 14,
-      color: '#666',
-    },
-    favoriteButton: {
-      position: 'absolute',
-      top: 10,
-      right: 10,
-      zIndex: 1,
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      borderRadius: 20,
-      padding: 5,
-    },
-    listContent: {
-      padding: 16,
-    },
-  });
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  contentContainer: {
+    padding: 16,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  price: {
+    fontSize: 18,
+    color: '#FF6B6B',
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 8,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ratingText: {
+    marginLeft: 4,
+    fontSize: 14,
+    color: '#666',
+  },
+});

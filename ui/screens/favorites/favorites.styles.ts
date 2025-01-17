@@ -12,4 +12,7 @@ export const styles = StyleSheet.create({
       fontSize: 24,
       marginBottom: 16,
     },
+    listContent: {
+      padding: 16,
+    },
   });

@@ -15,50 +15,41 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    checkIfFavorite();
-  }, []);
+    const checkIfFavorite = async () => {
+      try {
+        const favoritesJson = await AsyncStorage.getItem(FAVORITES_STORAGE_KEY);
+        if (favoritesJson) {
+          const favorites: Product[] = JSON.parse(favoritesJson);
+          setIsFavorite(favorites.some(fav => fav.id === product.id));
+        }
+      } catch (error) {
+        console.error('Errore nel controllo dei preferiti:', error);
+      }
+    };
 
-  const checkIfFavorite = async () => {
-    try {
-      const favoritesJson = await AsyncStorage.getItem(FAVORITES_STORAGE_KEY);
-      const favorites: Product[] = favoritesJson ? JSON.parse(favoritesJson) : [];
-      setIsFavorite(favorites.some(fav => fav.id === product.id));
-    } catch (error) {
-      console.error('Errore nel controllo dei preferiti:', error);
-    }
-  };
+    checkIfFavorite();
+  }, [product.id]);
 
   const toggleFavorite = async () => {
     try {
       const favoritesJson = await AsyncStorage.getItem(FAVORITES_STORAGE_KEY);
-      const favorites: Product[] = favoritesJson ? JSON.parse(favoritesJson) : [];
-
-      let updatedFavorites;
-      if (isFavorite) {
-        updatedFavorites = favorites.filter(fav => fav.id !== product.id);
-      } else {
-        updatedFavorites = [...favorites, product];
+      let favorites: Product[] = [];
+      
+      if (favoritesJson) {
+        favorites = JSON.parse(favoritesJson);
       }
 
-      await AsyncStorage.setItem(
-        FAVORITES_STORAGE_KEY,
-        JSON.stringify(updatedFavorites)
-      );
+      if (isFavorite) {
+        favorites = favorites.filter(fav => fav.id !== product.id);
+      } else {
+        favorites = [...favorites, product];
+      }
+
+      await AsyncStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
       setIsFavorite(!isFavorite);
     } catch (error) {
       console.error('Errore nel salvataggio del preferito:', error);
     }
-  };
-
-  const renderStars = (rating: number) => {
-    return [...Array(5)].map((_, index) => (
-      <Ionicons
-        key={index}
-        name={index < Math.floor(rating) ? 'star' : 'star-outline'}
-        size={16}
-        color="#FFD700"
-      />
-    ));
   };
 
   return (
@@ -81,11 +72,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.description}
         </Text>
         <View style={styles.ratingContainer}>
-          <View style={styles.stars}>
-            {renderStars(product.rating.rate)}
-          </View>
           <Text style={styles.ratingText}>
-            {product.rating.rate} ({product.rating.count} recensioni)
+            {product.rating.rate} / 5 ({product.rating.count} recensioni)
           </Text>
         </View>
       </View>
