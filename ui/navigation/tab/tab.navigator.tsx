@@ -6,6 +6,7 @@
   import FavoritesScreen from '../../screens/favorites/favorites.screen';
   import { Ionicons } from '@expo/vector-icons';
   import FiltersScreen from '../../screens/filters/filter.screen';
+import ProductDetailScreen from '../../screens/details/product.detail.screen';
 
   const Tab = createBottomTabNavigator<TabParamList>();
 

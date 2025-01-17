@@ -27,9 +27,11 @@ export type TabParamList = {
   };
   Favorites: undefined;
   Filters: undefined;
+  ProductDetail: { product: Product };
 };
 
 export type RootStackParamList = {
+  MainTabs: undefined;
   ProductList: {
     filters?: {
       category: string;

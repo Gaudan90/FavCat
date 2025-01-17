@@ -10,3 +10,9 @@ export interface Product {
       count: number;
     };
   }
+
+  export interface ProductCardProps {
+    product: Product;
+    onFavoriteChange?: () => void;
+    isFavoritesScreen?: boolean;
+  }

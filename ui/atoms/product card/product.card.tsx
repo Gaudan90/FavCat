@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Product } from '../../types/product.types';
+import { TabParamList, MainParamList } from '../../types/types';
+import { CompositeNavigationProp } from '@react-navigation/native';
 import { styles } from './product.card.styles';
+import { ProductCardProps } from '../../types/product.types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-interface ProductCardProps {
-  product: Product;
-  onFavoriteChange?: () => void;
-  isFavoritesScreen?: boolean;
-}
-
+type ProductNavigationProp = CompositeNavigationProp
+  BottomTabNavigationProp<TabParamList>,
+  StackNavigationProp<MainParamList>
+>;
 const FAVORITES_STORAGE_KEY = '@favorites';
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
@@ -19,6 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isFavoritesScreen = false
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const navigation = useNavigation<ProductNavigationProp>();
 
   useEffect(() => {
     checkIfFavorite();
@@ -54,7 +59,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
       await AsyncStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
       setIsFavorite(!isFavorite);
       
-      // Notifica il cambiamento
       if (onFavoriteChange) {
         onFavoriteChange();
       }
@@ -75,22 +79,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
           color={isFavorite ? '#FF6B6B' : '#6f84a6'}
         />
       </TouchableOpacity>
-      <Image 
-        source={{ uri: product.image }} 
-        style={styles.image} 
-      />
-      <View style={styles.contentContainer}>
-        <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
-        <Text style={styles.price}>€ {product.price.toFixed(2)}</Text>
-        <Text style={styles.description} numberOfLines={3}>
-          {product.description}
-        </Text>
-        <View style={styles.ratingContainer}>
-          <Text style={styles.ratingText}>
-            {product.rating.rate} / 5 ({product.rating.count} recensioni)
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ProductDetail', { product })}
+      >
+        <Image 
+          source={{ uri: product.image }} 
+          style={styles.image} 
+        />
+        <View style={styles.contentContainer}>
+          <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
+          <Text style={styles.price}>€ {product.price.toFixed(2)}</Text>
+          <Text style={styles.description} numberOfLines={3}>
+            {product.description}
           </Text>
+          <View style={styles.ratingContainer}>
+            <Text style={styles.ratingText}>
+              {product.rating.rate} / 5 ({product.rating.count} recensioni)
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
