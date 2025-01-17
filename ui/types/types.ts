@@ -1,3 +1,4 @@
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { Product } from './product.types';
 
 export enum Screen {
@@ -31,6 +32,7 @@ export type TabParamList = {
 };
 
 export type RootStackParamList = {
+  TabNavigator: NavigatorScreenParams<TabParamList>;
   MainTabs: undefined;
   ProductList: {
     filters?: {
