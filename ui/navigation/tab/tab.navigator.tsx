@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabParamList, Screen, Product } from '../../types/types';
+import { TabParamList, Screen } from '../../types/types';
 import HomeScreen from '../../screens/home/home.screen';
 import ProductListScreen from '../../screens/product/product.list.screen';
 import FavoritesScreen from '../../screens/favorites/favorites.screen';
@@ -8,6 +8,8 @@ import ProductDetailScreen from '../../screens/details/product.detail.screen';
 import FiltersScreen from '../../screens/filters/filter.screen';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
+import { Product } from '../../types/product.types';
+import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -66,7 +68,6 @@ const TabNavigator = () => {
             <Ionicons name="information-circle-outline" size={size} color={color} />
           ),
           tabBarLabel: 'Dettaglio',
-          tabBarButton: ProductDetailTabButton
         }}
       />
       <Tab.Screen

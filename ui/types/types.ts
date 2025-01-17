@@ -5,7 +5,8 @@ export enum Screen {
   Products = 'Products',
   Favorites = 'Favorites',
   Filters = 'Filters',
-  ProductDetail = 'ProductDetail'
+  ProductDetail = 'ProductDetail',
+  TabNavigator = 'TabNavigator'
 }
 
 export type ProductFilters = {
@@ -23,6 +24,7 @@ export type TabParamList = {
   [Screen.ProductDetail]: {   
     product?: Product;  
   };
+  [Screen.TabNavigator]: undefined;
 };
 
 export { Product };
