@@ -7,7 +7,7 @@ export enum Screen {
   Products = 'Products',
   Favorites = 'Favorites',
   Filters = 'Filters',
-  ProductDetail = 'ProductDetail', 
+  ProductDetail = 'ProductDetail',
 }
 
 export type MainParamList = {
@@ -18,21 +18,23 @@ export type MainParamList = {
   };
 };
 
+export type ProductFilters = {
+  category?: string;
+  minRating?: number;
+};
+
+
 export type TabParamList = {
-  Home: undefined;
-  Products: {
-    filters?: {
-      category: string;
-      minRating: number;
-    };
+  [Screen.Home]: undefined;
+  [Screen.Products]: {
+    filters?: ProductFilters;
   };
-  Favorites: undefined;
-  Filters: undefined;
-  ProductDetail: { product: Product };
+  [Screen.Favorites]: undefined;
+  [Screen.Filters]: undefined;
 };
 
 export type RootStackParamList = {
-  TabNavigator: NavigatorScreenParams<TabParamList>;
+  TabNavigator: undefined | { screen: string; params: any };
   MainTabs: undefined;
   ProductList: {
     filters?: {

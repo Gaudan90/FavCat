@@ -1,13 +1,15 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack'; 
+import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from '../tab/tab.navigator';
 import ProductDetailScreen from '../../screens/details/product.detail.screen';
+import { RootStackParamList } from '../../types/types';
 
-const Stack = createStackNavigator(); // Rimuovi il generic type
+const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator
+      initialRouteName="TabNavigator"
       screenOptions={{
         headerShown: false,
       }}
@@ -26,6 +28,9 @@ const StackNavigator = () => {
           headerStyle: {
             backgroundColor: '#1d2b42',
           },
+          presentation: 'card',
+          cardShadowEnabled: true,
+          gestureEnabled: true,
         }}
       />
     </Stack.Navigator>
