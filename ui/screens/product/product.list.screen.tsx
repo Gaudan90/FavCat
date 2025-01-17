@@ -7,9 +7,9 @@
   import ProductCard from '../../atoms/product card/product.card';
   import GradientButton from '../../atoms/button/gradient button/gradient.button.atom';
   import { Product } from '../../types/product.types';
-  import { RootStackParamList } from '../../types/types';
-
-  type ProductListScreenRouteProp = RouteProp<RootStackParamList, 'ProductList'>;
+  import { TabParamList, Screen } from '../../types/types';
+  
+  type ProductListScreenRouteProp = RouteProp<TabParamList, Screen.Products>;
 
   const ProductListScreen = () => {
     const route = useRoute<ProductListScreenRouteProp>();
