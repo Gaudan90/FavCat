@@ -30,4 +30,24 @@ export const styles = StyleSheet.create({
       lineHeight: 22,
       opacity: 0.8,
     },
+    closeButton: {
+      position: 'absolute',
+      top: 50,
+      right: 20,
+      zIndex: 1,
+      padding: 10,
+      color: '#ffffff'
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 20,
+      color: '#1d2b42',
+    },
+    footer: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginTop: 30,
+      color: '#cd1c18',
+    }
 });

@@ -1,10 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TabParamList, Screen } from '../../types/types';
-import HomeScreen from '../../screens/home/home.screen';
+import { TabParamList } from '../../types/types';
 import ProductListScreen from '../../screens/product/product.list.screen';
 import FavoritesScreen from '../../screens/favorites/favorites.screen';
-import ProductDetailScreen from '../../screens/details/product.detail.screen';
 import FiltersScreen from '../../screens/filters/filter.screen';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -27,17 +25,7 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen
-        name={Screen.Home}
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
-          ),
-          tabBarLabel: 'Home'
-        }}
-      />
-      <Tab.Screen
-        name={Screen.Products}
+        name="Products"
         component={ProductListScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -47,17 +35,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={Screen.ProductDetail}
-        component={ProductDetailScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="information-circle-outline" size={size} color={color} />
-          ),
-          tabBarLabel: 'Dettaglio',
-        }}
-      />
-      <Tab.Screen
-        name={Screen.Favorites}
+        name="Favorites"
         component={FavoritesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -67,7 +45,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={Screen.Filters}
+        name="Filters"
         component={FiltersScreen}
         options={{
           tabBarIcon: ({ color, size }) => (

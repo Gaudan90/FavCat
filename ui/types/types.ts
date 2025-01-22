@@ -1,12 +1,9 @@
-import { Product } from './product.types';
-
 export enum Screen {
-  Home = 'Home',
+  Tutorial = 'Tutorial',
+  MainTabs = 'MainTabs',
   Products = 'Products',
   Favorites = 'Favorites',
-  Filters = 'Filters',
-  ProductDetail = 'ProductDetail',
-  TabNavigator = 'TabNavigator'
+  Filters = 'Filters'
 }
 
 export type ProductFilters = {
@@ -14,17 +11,17 @@ export type ProductFilters = {
   minRating?: number;
 };
 
-export type TabParamList = {
-  [Screen.Home]: undefined;
-  [Screen.Products]: {
-    filters?: ProductFilters;
+export type RootStackParamList = {
+  Tutorial: {
+    onComplete: () => Promise<void>;
   };
-  [Screen.Favorites]: undefined;
-  [Screen.Filters]: undefined;
-  [Screen.ProductDetail]: {   
-    product?: Product;  
-  };
-  [Screen.TabNavigator]: undefined;
+  MainTabs: undefined;
 };
 
-export { Product };
+export type TabParamList = {
+  Products: {
+    filters?: ProductFilters;
+  };
+  Favorites: undefined;
+  Filters: undefined;
+};
