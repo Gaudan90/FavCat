@@ -35,7 +35,6 @@ const ProductDetailScreen = () => {
           />
         </View>
 
-        {/* Immagine Prodotto */}
         <View style={styles.productImageContainer}>
           <Image 
             source={{ uri: product.image }} 
@@ -44,18 +43,14 @@ const ProductDetailScreen = () => {
           />
         </View>
 
-        {/* Dettagli Prodotto */}
         <View style={styles.detailsContainer}>
-          {/* Categoria */}
           <View style={styles.categoryBadge}>
             <Text style={styles.categoryText}>{product.category}</Text>
           </View>
 
-          {/* Titolo e Prezzo */}
           <Text style={styles.title}>{product.title}</Text>
           <Text style={styles.price}>€ {product.price.toFixed(2)}</Text>
 
-          {/* Rating */}
           <View style={styles.ratingContainer}>
             {Array.from({ length: 5 }).map((_, index) => (
               <Ionicons
@@ -71,7 +66,6 @@ const ProductDetailScreen = () => {
             </Text>
           </View>
 
-          {/* Descrizione */}
           <View style={styles.descriptionContainer}>
             <Text style={styles.descriptionTitle}>Descrizione</Text>
             <Text style={styles.descriptionText}>{product.description}</Text>
