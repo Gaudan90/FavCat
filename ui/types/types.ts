@@ -1,9 +1,12 @@
+import { Product } from "./product.types";
+
 export enum Screen {
   Tutorial = 'Tutorial',
   MainTabs = 'MainTabs',
   Products = 'Products',
   Favorites = 'Favorites',
-  Filters = 'Filters'
+  Filters = 'Filters',
+  ProductDetail = 'ProductDetail'
 }
 
 export type ProductFilters = {
@@ -24,4 +27,7 @@ export type TabParamList = {
   };
   Favorites: undefined;
   Filters: undefined;
+  ProductDetail: {
+    product: Product;
+  };
 };
