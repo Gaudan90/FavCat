@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Product } from '../../types/product.types';
 import { TabParamList, Screen } from '../../types/types';
 import { styles } from './product.card.styles';
 import { ProductCardProps } from '../../types/product.types';
 import favoritesEventEmitter, { FAVORITES_UPDATED } from '../../utilities/event.emitter';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/types';
 
-type ProductNavigationProp = BottomTabNavigationProp<TabParamList>;
+type ProductNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const FAVORITES_STORAGE_KEY = '@favorites';
 

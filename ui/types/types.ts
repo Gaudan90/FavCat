@@ -19,6 +19,9 @@ export type RootStackParamList = {
     onComplete: () => Promise<void>;
   };
   MainTabs: undefined;
+  ProductDetail: {
+    product: Product;
+  };
 };
 
 export type TabParamList = {

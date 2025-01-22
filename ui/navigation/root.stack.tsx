@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../types/types';
 import TabNavigator from './tab/tab.navigator';
 import TutorialScreen from '../screens/tutorial/tutorial.screen';
+import ProductDetailScreen from '../screens/product/product.list.screen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const TUTORIAL_SHOWN_KEY = '@tutorial_shown';
@@ -45,10 +46,26 @@ const RootStack = () => {
           }}
         />
       ) : (
-        <Stack.Screen 
-          name="MainTabs"
-          component={TabNavigator}
-        />
+        <>
+          <Stack.Screen 
+            name="MainTabs"
+            component={TabNavigator}
+          />
+          <Stack.Screen
+            name="ProductDetail"
+            component={ProductDetailScreen}
+            options={{
+              headerShown: true,
+              headerTitle: 'Dettaglio Prodotto',
+              headerTintColor: '#cd1c18',
+              headerStyle: {
+                backgroundColor: '#1d2b42',
+              },
+              presentation: 'card',
+              animation: 'slide_from_right',
+            }}
+          />
+        </>
       )}
     </Stack.Navigator>
   );
