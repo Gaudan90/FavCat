@@ -4,12 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product } from '../../types/product.types';
 import ProductCard from '../../atoms/product card/product.card';
+import favoritesEventEmitter, { FAVORITES_UPDATED } from '../../utilities/event.emitter';
 import { styles } from './favorites.styles';
 
 const FAVORITES_STORAGE_KEY = '@favorites';
 
 const FavoritesScreen = () => {
   const [favorites, setFavorites] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadFavorites = async () => {
     try {
@@ -21,14 +23,32 @@ const FavoritesScreen = () => {
         setFavorites([]);
       }
     } catch (error) {
-      console.error('Errore nel caricamento dei preferiti:', error);
+      console.error('Error loading favorites:', error);
       setFavorites([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     loadFavorites();
+    
+    favoritesEventEmitter.on(FAVORITES_UPDATED, loadFavorites);
+
+    return () => {
+      favoritesEventEmitter.removeListener(FAVORITES_UPDATED, loadFavorites);
+    };
   }, []);
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.emptyContainer}>
+          <Text style={styles.text}>Loading...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   if (favorites.length === 0) {
     return (

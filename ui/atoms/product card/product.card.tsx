@@ -8,6 +8,7 @@ import { Product } from '../../types/product.types';
 import { TabParamList, Screen } from '../../types/types';
 import { styles } from './product.card.styles';
 import { ProductCardProps } from '../../types/product.types';
+import favoritesEventEmitter, { FAVORITES_UPDATED } from '../../utilities/event.emitter';
 
 type ProductNavigationProp = BottomTabNavigationProp<TabParamList>;
 
@@ -15,13 +16,23 @@ const FAVORITES_STORAGE_KEY = '@favorites';
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
-  onFavoriteChange
+  onFavoriteChange,
+  isFavoritesScreen = false
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const navigation = useNavigation<ProductNavigationProp>();
 
   useEffect(() => {
     checkIfFavorite();
+    
+    // Sottoscrivi agli aggiornamenti dei preferiti
+    const updateFavoriteStatus = () => checkIfFavorite();
+    favoritesEventEmitter.on(FAVORITES_UPDATED, updateFavoriteStatus);
+
+    // Cleanup quando il componente viene smontato
+    return () => {
+      favoritesEventEmitter.removeListener(FAVORITES_UPDATED, updateFavoriteStatus);
+    };
   }, [product.id]);
 
   const checkIfFavorite = async () => {
@@ -54,34 +65,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
       await AsyncStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
       setIsFavorite(!isFavorite);
       
+      favoritesEventEmitter.emit(FAVORITES_UPDATED);
+      
       if (onFavoriteChange) {
         onFavoriteChange();
       }
+
     } catch (error) {
       console.error('Errore nel salvataggio del preferito:', error);
     }
   };
 
   const renderStars = (rating: number) => {
-    const stars = [];
     const roundedRating = Math.round(rating * 2) / 2;
     
-    for (let i = 1; i <= 5; i++) {
-      if (roundedRating >= i) {
-        stars.push(
-          <Ionicons key={i} name="star" size={16} color="#FFD700" style={styles.starIcon} />
-        );
-      } else if (roundedRating >= i - 0.5) {
-        stars.push(
-          <Ionicons key={i} name="star-half" size={16} color="#FFD700" style={styles.starIcon} />
-        );
+    return Array.from({ length: 5 }).map((_, i) => {
+      if (roundedRating >= i + 1) {
+        return <Ionicons key={i} name="star" size={16} color="#FFD700" style={styles.starIcon} />;
+      } else if (roundedRating >= i + 0.5) {
+        return <Ionicons key={i} name="star-half" size={16} color="#FFD700" style={styles.starIcon} />;
       } else {
-        stars.push(
-          <Ionicons key={i} name="star-outline" size={16} color="#FFD700" style={styles.starIcon} />
-        );
+        return <Ionicons key={i} name="star-outline" size={16} color="#FFD700" style={styles.starIcon} />;
       }
-    }
-    return stars;
+    });
   };
 
   return (
