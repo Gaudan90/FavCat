@@ -11,16 +11,17 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
   },
   headerImageContainer: {
-    width: '100%',
+    width: width,
     height: 150,
-    backgroundColor: '#1d2b42',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   contentContainer: {
     padding: 16,
   },
   headerImage: {
-    width: '100%',
-    height: '100%',
+    width: 150,
+    height: 150,
   },
   productImageContainer: {
     width: width,
