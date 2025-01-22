@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Product } from '../../types/product.types';
-import { TabParamList, Screen } from '../../types/types';
+import { RootStackParamList } from '../../types/types';
 import { styles } from './product.card.styles';
 import { ProductCardProps } from '../../types/product.types';
 import favoritesEventEmitter, { FAVORITES_UPDATED } from '../../utilities/event.emitter';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/types';
 
 type ProductNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -26,11 +25,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   useEffect(() => {
     checkIfFavorite();
     
-    // Sottoscrivi agli aggiornamenti dei preferiti
     const updateFavoriteStatus = () => checkIfFavorite();
     favoritesEventEmitter.on(FAVORITES_UPDATED, updateFavoriteStatus);
 
-    // Cleanup quando il componente viene smontato
     return () => {
       favoritesEventEmitter.removeListener(FAVORITES_UPDATED, updateFavoriteStatus);
     };
@@ -71,10 +68,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
       if (onFavoriteChange) {
         onFavoriteChange();
       }
-
     } catch (error) {
       console.error('Errore nel salvataggio del preferito:', error);
     }
+  };
+
+  const navigateToDetail = () => {
+    navigation.navigate('ProductDetail', { product });
   };
 
   const renderStars = (rating: number) => {
@@ -103,11 +103,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           color={isFavorite ? '#FF6B6B' : '#6f84a6'}
         />
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate(Screen.ProductDetail, { product });
-        }}
-      >
+      <TouchableOpacity onPress={navigateToDetail}>
         <Image 
           source={{ uri: product.image }} 
           style={styles.image} 

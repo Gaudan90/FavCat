@@ -1,95 +1,97 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const imageWidth = width - 32;
-const imageHeight = imageWidth * 0.66;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#040e1f',
+    backgroundColor: '#fff',
   },
   scrollContainer: {
     flexGrow: 1,
   },
-  imageContainer: {
-    width: width,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 10,
-  },
-  image: {
-    width: imageWidth,
-    height: imageHeight,
-    backgroundColor: '#040e1f',
+  headerImageContainer: {
+    width: '100%',
+    height: 150,
+    backgroundColor: '#1d2b42',
   },
   contentContainer: {
     padding: 16,
   },
+  headerImage: {
+    width: '100%',
+    height: '100%',
+  },
+  productImageContainer: {
+    width: width,
+    height: width * 0.8,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  productImage: {
+    width: '100%',
+    height: '100%',
+  },
+  detailsContainer: {
+    padding: 20,
+  },
+  categoryBadge: {
+    backgroundColor: '#1d2b42',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
+  },
+  categoryText: {
+    color: '#fff',
+    fontSize: 14,
+    textTransform: 'capitalize',
+  },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#6f84a6',
+    color: '#1d2b42',
     marginBottom: 8,
   },
   price: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '600',
-    color: '#FF6B6B',
+    color: '#cd1c18',
     marginBottom: 16,
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
+  },
+  starIcon: {
+    marginRight: 2,
   },
   ratingText: {
     marginLeft: 8,
     fontSize: 16,
-    color: '#6f84a6',
-  },
-  reviewCount: {
-    marginLeft: 8,
-    fontSize: 14,
-    color: '#6f84a6',
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  categoryLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#6f84a6',
-    marginRight: 8,
-  },
-  categoryText: {
-    fontSize: 16,
-    color: '#6f84a6',
+    color: '#666',
   },
   descriptionContainer: {
-    marginBottom: 16,
+    marginTop: 8,
   },
-  descriptionLabel: {
-    fontSize: 16,
+  descriptionTitle: {
+    fontSize: 18,
     fontWeight: '600',
-    color: '#6f84a6',
+    color: '#1d2b42',
     marginBottom: 8,
   },
-  description: {
-    fontSize: 14,
-    lineHeight: 22,
-    color: '#6f84a6',
+  descriptionText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#444',
   },
   errorText: {
     fontSize: 16,
-    color: '#FF6B6B',
+    color: '#cd1c18',
     textAlign: 'center',
-  },
-  headerImage: {
-    width: 150,
-    height: 150,
-    backgroundColor: '#040e1f',
   },
 });
