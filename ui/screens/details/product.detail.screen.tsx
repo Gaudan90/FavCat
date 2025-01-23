@@ -26,7 +26,6 @@ const ProductDetailScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView bounces={false} contentContainerStyle={styles.scrollContainer}>
-        {/* Immagine Header Decorativa */}
         <View style={styles.headerImageContainer}>
           <Image 
             source={require('../../../assets/images/favcat.png')}
@@ -55,7 +54,7 @@ const ProductDetailScreen = () => {
             {Array.from({ length: 5 }).map((_, index) => (
               <Ionicons
                 key={index}
-                name={index < Math.floor(product.rating.rate) ? "star" : "star-outline"}
+                name={index < Math.round(product.rating.rate) ? "star" : "star-outline"}
                 size={24}
                 color="#FFD700"
                 style={styles.starIcon}
